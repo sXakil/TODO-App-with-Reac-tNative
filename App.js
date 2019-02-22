@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, ScrollView, TextInput} from 'react-native'
+import {StyleSheet, Text, View, ScrollView} from 'react-native'
 import uuidv4 from 'uuid'
 import TextForm from './Components/TextForm'
 import Todo from './Components/Todo'
@@ -47,8 +47,8 @@ export default class App extends Component {
     let crossOff = {}
     return (
       <View style={styles.container}>
-        <Text> Total TODOs: {this.state.todos.length} </Text>
-        <Text> Checked TODOs: {this.state.todos.filter(todo => todo.checked).length} </Text>
+        <Text style={styles.textLabel}> Total TODOs: {this.state.todos.length} </Text>
+        <Text style={styles.textLabel}> Checked TODOs: {this.state.todos.filter(todo => todo.checked).length} </Text>
         <TextForm 
           text={this.state.text}
           isDisabled={this.state.disableButton}
@@ -78,8 +78,16 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ddddff',
+  },
+  textLabel: {
+    textAlign: 'center',
+    backgroundColor: 'royalblue',
+    color: 'white',
+    width: '100%',
+    marginBottom: 5,
   },
 })
