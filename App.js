@@ -1,30 +1,24 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, ScrollView} from 'react-native';
-import uuidv4 from 'uuid/v4';
+import {StyleSheet, Text, View, Button, ScrollView, TextInput} from 'react-native'
+import uuidv4 from 'uuid'
+import TextForm from './Components/TextForm'
 import Todo from './Components/Todo'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 let id = 0
-
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       todos: [],
+      text: '',
+      disableButton: true,
     }
   }
-  componentDidMount() {
-    this.interval = setInterval(() => {id += 100}, 1000)
-  }
   newTodo = () => {
-    const text = 'The TODO - ' + id;
     this.setState({
-      todos: [...this.state.todos, { id: id++, text,}],
+      todos: [...this.state.todos, { id: id++, text : this.state.text,}],
+      text: '',
+      disableButton: true,
     })
   }
   deleteTodo = id => {
@@ -45,24 +39,35 @@ export default class App extends Component {
       })
     })
   }
+  checkLength = (value) => {
+      if(value.length >= 10) this.setState({disableButton: false,})
+      else this.setState({disableButton: true,})
+  }
   render() {
     let crossOff = {}
     return (
       <View style={styles.container}>
         <Text> Total TODOs: {this.state.todos.length} </Text>
         <Text> Checked TODOs: {this.state.todos.filter(todo => todo.checked).length} </Text>
-        <View style={styles.button}>
-          <Button onPress={this.newTodo} title="+ Add New" />
-        </View>
+        <TextForm 
+          text={this.state.text}
+          isDisabled={this.state.disableButton}
+          handleChangeText={text => {
+              this.checkLength(text)
+              this.setState({text,})
+            }
+          }
+          handleNewTODO={this.newTodo}
+        />
         <ScrollView style={{width: "98%"}}>
-          {this.state.todos.map(todo => {
-            crossOff = todo.checked ? {textDecorationLine: 'line-through'}  : {textDecorationLine: 'none'}
+            {this.state.todos.map(todo => {
+                crossOff = todo.checked ? {textDecorationLine: 'line-through'}  : {textDecorationLine: 'none'}
             return (
-              <Todo 
-                key={uuidv4()} todo={todo} textStyle={crossOff} 
-                onSwitch={() => this.toggleCheck(todo.id)} 
-                onDelete={() => this.deleteTodo(todo.id)}
-              />
+                <Todo 
+                    key={uuidv4()} todo={todo} textStyle={crossOff} 
+                    onSwitch={() => this.toggleCheck(todo.id)} 
+                    onDelete={() => this.deleteTodo(todo.id)}
+                />
             )})}
         </ScrollView>
       </View>
@@ -76,13 +81,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ddddff',
-  },
-  button: {
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#ffffff',
-    marginBottom: 5,
   },
 })

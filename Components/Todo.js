@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     todoTextStyle: {
         paddingStart: 10,
         paddingEnd: 10,
+        maxWidth: '70%'
     },
     todoButtonStyle: {
         paddingRight: 5,
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
 const Todo = props => (
     <View style={styles.todoStyles}>
       <Switch onValueChange={props.onSwitch} value={props.todo.checked} />
-      <Text style={[props.textStyle, styles.todoTextStyle]}>{props.todo.text}</Text>
+      <Text textBreakStrategy={"balanced"} style={[props.textStyle, styles.todoTextStyle]}>{props.todo.text}</Text>
       <View style={styles.todoButtonStyle}>
         <Button onPress={props.onDelete} title=" delete " />
       </View>
