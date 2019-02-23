@@ -38,23 +38,43 @@ export default class App extends Component {
             todos: [],
             text: '',
             disableButton: true,
+            isFocused: false,
         }
     }
+
     newTodo = () => {
         this.setState(() => {
             return {
-                todos: [...this.state.todos, {id: id++, text: this.state.text,}],
+                todos: [...this.state.todos, {
+                        id: id++,
+                        text: this.state.text,
+                        checked: false,
+                    }],
                 text: '',
                 disableButton: true,
+                isFocused: false,
             }
         });
         ToastAndroid.show('New TODO added!', ToastAndroid.SHORT);
     };
-    deleteTodo = id => {
+    editTodo = (id) => {
+        this.state.todos.map(todo => {
+            if (todo.id !== id) return;
+            let text = todo.text;
+            this.setState({text, isFocused: true,});
+            this.checkLength(text);
+            this.deleteTodo(todo.id, true);
+        })
+    };
+    deleteTodo = (id, edit=false) => {
         this.setState({
             todos: this.state.todos.filter(todo => todo.id !== id),
         });
-        ToastAndroid.show(`TODO: ${id} deleted successfully!`, ToastAndroid.SHORT);
+        console.log(this.state.text);
+        let text;
+        if(edit) text = `TODO: ${id} is moved to editing queue.`;
+        else text = `TODO: ${id} deleted successfully!`;
+        ToastAndroid.show(text, ToastAndroid.SHORT);
     };
     toggleCheck = id => {
         let status = 'done';
@@ -65,6 +85,7 @@ export default class App extends Component {
                 return {
                     id: todo.id,
                     text: todo.text,
+                    isEditable: false,
                     checked: !todo.checked,
                 }
             })
@@ -83,6 +104,7 @@ export default class App extends Component {
                 <TextForm
                     text={this.state.text}
                     isDisabled={this.state.disableButton}
+                    handleFocus={this.state.isFocused}
                     handleChangeText={
                         text => {
                             this.checkLength(text);
@@ -99,8 +121,10 @@ export default class App extends Component {
                                     key={uuidv4()} todo={todo}
                                     todoStyle={todo.checked ? {backgroundColor: '#555555',} : {backgroundColor: '#777777',}}
                                     todoTextStyle={todo.checked ? {textDecorationLine: 'line-through', color: '#888888',} : {textDecorationLine: 'none', color: '#dddddd',}}
+                                    isEditable={this.state.isEditable}
                                     onSwitch={() => this.toggleCheck(todo.id)}
                                     onDelete={() => this.deleteTodo(todo.id)}
+                                    onEdit={() => this.editTodo(todo.id)}
                                 />
                             )
                         })}

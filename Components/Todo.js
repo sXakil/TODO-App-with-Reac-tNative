@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
         maxWidth: '70%'
     },
     todoButtonStyle: {
+        flexDirection: 'row',
         paddingRight: 5,
     },
 });
@@ -36,8 +37,20 @@ const Todo = props => {
                 onPress={props.onSwitch}
                 checked={props.todo.checked}
             />
-            <Text textBreakStrategy={"balanced"} style={[props.todoTextStyle, styles.todoTextStyles]}>{props.todo.text}</Text>
+            <Text textBreakStrategy={"balanced"} style={[props.todoTextStyle, styles.todoTextStyles]}>
+                {props.todo.text}
+            </Text>
             <View style={styles.todoButtonStyle}>
+               <Icon
+                    Component={TouchableScale}
+                    friction={90}
+                    tension={100}
+                    activeScale={1.5}
+                    name={'edit'}
+                    type={'material'}
+                    color={'#cccccc'}
+                    onPress={props.onEdit}
+               />
                <Icon
                     Component={TouchableScale}
                     friction={90}
@@ -61,6 +74,7 @@ Todo.propTypes = {
     todoTextStyle: PropTypes.object.isRequired,
     onSwitch: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
 };
 
 export default Todo

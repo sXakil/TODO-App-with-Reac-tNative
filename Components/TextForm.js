@@ -52,6 +52,7 @@ const TextForm = props => (
                 textBreakStrategy={'highQuality'}
                 onChangeText={props.handleChangeText}
                 value={props.text}
+                autoFocus={props.handleFocus}
             />
         </View>
         <View style={styles.button}>
@@ -74,6 +75,7 @@ TextForm.protoTypes = {
     isDisabled: PropTypes.bool.isRequired,
     handleChangeText: PropTypes.func.isRequired,
     handleNewTODO: PropTypes.func.isRequired,
+    handleFocus: PropTypes.bool.isRequired,
 };
 
 export default TextForm

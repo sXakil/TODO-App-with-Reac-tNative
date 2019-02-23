@@ -647,6 +647,11 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@react-native-community/async-storage@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.0.1.tgz#0eb61254ef6125a047a8340656a3b57987630718"
+  integrity sha512-A/b0DYZ9RadMGJDH0OmsusawH1OWgrCF0u9EMrLHBeDNTOVU7AKQPBrrhwca6WgfFzUwBbPRJc0Fs/lpAieDVQ==
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
