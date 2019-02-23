@@ -1,5 +1,8 @@
 import React from 'react'
-import {Text, View, Button, Switch, StyleSheet} from 'react-native'
+import {Text, View, StyleSheet} from 'react-native'
+import TouchableScale from 'react-native-touchable-scale'
+import { CheckBox, Icon } from 'react-native-elements'
+
 import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
@@ -9,7 +12,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingBottom: 10,
         paddingTop: 10,
-        backgroundColor: '#ffffff',
         marginBottom: 1,
     },
     todoTextStyle: {
@@ -23,15 +25,29 @@ const styles = StyleSheet.create({
 })
 
 const Todo = props => (
-    <View style={styles.todoStyles}>
-      <Switch onValueChange={props.onSwitch} value={props.todo.checked} />
-      <Text textBreakStrategy={"balanced"} style={[props.textStyle, styles.todoTextStyle]}>{props.todo.text}</Text>
-      <View style={styles.todoButtonStyle}>
-        <Button onPress={props.onDelete} title=" delete " />
-      </View>
+    <View style={[props.todoStyle, styles.todoStyles]}>
+        <CheckBox 
+            Component={TouchableScale}
+            friction={90}
+            tension={100}
+            activeScale={1.5}
+            onPress={props.onSwitch} 
+            checked={props.todo.checked} 
+        />
+        <Text textBreakStrategy={"balanced"} style={styles.todoTextStyle}>{props.todo.text}</Text>
+        <View style={styles.todoButtonStyle}>
+            <Icon 
+                Component={TouchableScale}
+                friction={90}
+                tension={100}
+                activeScale={1.5}
+                name='delete' 
+                type='material' 
+                onPress={props.onDelete}
+            />
+        </View>
     </View>
 )
-
 Todo.propTypes = {
     todo: PropTypes.shape({
         text: PropTypes.string.isRequired,
