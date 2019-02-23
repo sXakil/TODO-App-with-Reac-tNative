@@ -22,32 +22,34 @@ const styles = StyleSheet.create({
     todoButtonStyle: {
         paddingRight: 5,
     },
-})
+});
 
-const Todo = props => (
-    <View style={[props.todoStyle, styles.todoStyles]}>
-        <CheckBox 
-            Component={TouchableScale}
-            friction={90}
-            tension={100}
-            activeScale={1.5}
-            onPress={props.onSwitch} 
-            checked={props.todo.checked} 
-        />
-        <Text textBreakStrategy={"balanced"} style={styles.todoTextStyle}>{props.todo.text}</Text>
-        <View style={styles.todoButtonStyle}>
-            <Icon 
+const Todo = props => {
+    return (
+        <View style={[props.todoStyle, styles.todoStyles]}>
+            <CheckBox
                 Component={TouchableScale}
                 friction={90}
                 tension={100}
                 activeScale={1.5}
-                name='delete' 
-                type='material' 
-                onPress={props.onDelete}
+                onPress={props.onSwitch}
+                checked={props.todo.checked}
             />
+            <Text textBreakStrategy={"balanced"} style={styles.todoTextStyle}>{props.todo.text}</Text>
+            <View style={styles.todoButtonStyle}>
+                <Icon
+                    Component={TouchableScale}
+                    friction={90}
+                    tension={100}
+                    activeScale={1.5}
+                    name='delete'
+                    type='material'
+                    onPress={props.onDelete}
+                />
+            </View>
         </View>
-    </View>
-)
+    )
+};
 Todo.propTypes = {
     todo: PropTypes.shape({
         text: PropTypes.string.isRequired,
@@ -55,6 +57,6 @@ Todo.propTypes = {
     }),
     onSwitch: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-}
+};
 
 export default Todo
