@@ -10,12 +10,21 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ddddff',
+        backgroundColor: '#181818',
+    },
+    card: {
+        color: 'white',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        backgroundColor: '#333333',
+        padding: 5,
+        width: '99%',
+        margin: 5,
     },
     textLabel: {
         textAlign: 'center',
-        backgroundColor: 'royalblue',
-        color: 'white',
+        backgroundColor: '#323232',
+        color: '#888888',
         width: '100%',
         marginBottom: 5,
     },
@@ -82,13 +91,14 @@ export default class App extends Component {
                     }
                     handleNewTODO={this.newTodo}
                 />
-                <ScrollView style={{width: "98%"}}>
+                <ScrollView style={this.state.todos.length ? styles.card : 'none'}>
                     {this.state.todos.map(
                         todo => {
                             return (
                                 <Todo
                                     key={uuidv4()} todo={todo}
-                                    todoStyle={todo.checked ? {backgroundColor: '#ffdddd',} : {backgroundColor: '#ffffff',}}
+                                    todoStyle={todo.checked ? {backgroundColor: '#555555',} : {backgroundColor: '#777777',}}
+                                    todoTextStyle={todo.checked ? {textDecorationLine: 'line-through', color: '#888888',} : {textDecorationLine: 'none', color: '#dddddd',}}
                                     onSwitch={() => this.toggleCheck(todo.id)}
                                     onDelete={() => this.deleteTodo(todo.id)}
                                 />

@@ -12,9 +12,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingBottom: 10,
         paddingTop: 10,
-        marginBottom: 1,
+        margin: 5,
+        borderRadius: 5,
     },
-    todoTextStyle: {
+    todoTextStyles: {
         paddingStart: 10,
         paddingEnd: 10,
         maxWidth: '70%'
@@ -35,17 +36,18 @@ const Todo = props => {
                 onPress={props.onSwitch}
                 checked={props.todo.checked}
             />
-            <Text textBreakStrategy={"balanced"} style={styles.todoTextStyle}>{props.todo.text}</Text>
+            <Text textBreakStrategy={"balanced"} style={[props.todoTextStyle, styles.todoTextStyles]}>{props.todo.text}</Text>
             <View style={styles.todoButtonStyle}>
-                <Icon
+               <Icon
                     Component={TouchableScale}
                     friction={90}
                     tension={100}
                     activeScale={1.5}
                     name='delete'
                     type='material'
+                    color={'#cccccc'}
                     onPress={props.onDelete}
-                />
+               />
             </View>
         </View>
     )
@@ -55,6 +57,8 @@ Todo.propTypes = {
         text: PropTypes.string.isRequired,
         checked: PropTypes.bool,
     }),
+    todoStyle: PropTypes.object.isRequired,
+    todoTextStyle: PropTypes.object.isRequired,
     onSwitch: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
 };

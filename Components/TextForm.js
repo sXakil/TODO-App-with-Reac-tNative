@@ -1,25 +1,51 @@
 import React from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { View, TextInput, StyleSheet } from 'react-native'
+import { Button } from 'react-native-elements'
 import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
-    button: {
-        margin: 10,
+    card: {
+        color: 'white',
+        borderRadius: 10,
+        backgroundColor: '#3c3f41',
+        padding: 15,
+        minWidth: '90%',
+        alignItems: 'center',
+        marginBottom: 5,
     },
-    textInputStyle: {
-        color: 'red',
-        borderBottomColor: '#000000',
+    button: {
+        margin: 8,
+    },
+    textInputView: {
+        borderBottomColor: '#ffffff',
         borderBottomWidth: 1,
         width: "80%",
         marginBottom: 10,
     },
+    textInputStyle: {
+        color: '#ffffff',
+    },
+    buttonStyle: {
+        backgroundColor: '#888888',
+    },
+    titleStyle: {
+        color: '#dddddd',
+    },
+    disabledButtonStyle: {
+        backgroundColor: "#555555"
+    },
+    disabledTitleStyle: {
+        color: '#888888'
+    }
 });
 
 const TextForm = props => (
-    <View>
-        <View style={styles.textInputStyle}>
+    <View style={styles.card}>
+        <View style={styles.textInputView}>
             <TextInput
-                placeholder={'Enter text... length {min: 10, max: 120}'}
+                style={styles.textInputStyle}
+                placeholder={'Enter text... (min 10, max 120)'}
+                placeholderTextColor={'lightgrey'}
                 maxLength={120}
                 multiline={true}
                 numberOfLines={3}
@@ -29,7 +55,16 @@ const TextForm = props => (
             />
         </View>
         <View style={styles.button}>
-            <Button style={styles.button} disabled={props.isDisabled} onPress={props.handleNewTODO} title="+ Add New"/>
+            <Button
+                style={styles.button}
+                buttonStyle={styles.buttonStyle}
+                titleStyle={styles.titleStyle}
+                disabledStyle={styles.disabledButtonStyle}
+                disabledTitleStyle={styles.disabledTitleStyle}
+                disabled={props.isDisabled}
+                onPress={props.handleNewTODO}
+                title="+ Add New"
+            />
         </View>
     </View>
 );
